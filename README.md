@@ -3,16 +3,16 @@ Today I learned✔
 
 * 카테고리는 폴더로 파일명은 영문으로
 * 매일매일은 아니더라도 꾸준히 하려고 노력하기
-* 더 알게된 내용이 있다면 정보 업데이트하기
+* 더 알게된 내용이 있다면 정보 업데이트하기🤓
 
 # Study
  1. ETC
  2. Spring
-  - Spring Information
+   - [Spring Information](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring/Spring%20Information.md)
  3. Spring Boot
-  - SpringBoot Information
-  - build.gradle 파익 작성해 보기
-  - configuration
+   - [SpringBoot Information](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/SpringBoot%20Information.md)
+   - [build.gradle 파익 작성해 보기](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/build.gradle.md)
+   - [configuration](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/configuration.md)
  4. Docker
  
 # Work
