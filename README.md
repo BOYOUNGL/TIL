@@ -7,8 +7,13 @@ Today I learned✔
 
 # Study
  1. ETC
- 2. Spring Boot
- 3. Docker
+ 2. Spring
+  - Spring Information
+ 3. Spring Boot
+  - SpringBoot Information
+  - build.gradle 파익 작성해 보기
+  - configuration
+ 4. Docker
  
 # Work
  1. ETC
