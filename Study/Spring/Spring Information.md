@@ -2,22 +2,20 @@
 	: 보통 '자바 엔터프라이즈 개발을 편하게 해주는 오픈소스 경량급 애플리케이션 프레임워크'라고 정의한다.
 	  
 200728 >> 내가 이해할만한 내용으로 바꿀 것
-
-	- 장점	
-		1. 중복 코드를 줄여줌
-		2. 로직 간단히
-		3. 오픈소스 활용하기 좋음
-	
-	- **특징 
-	  1. POJO (Plain Old Java Object)
-	     : Getter / Setter
-	  2. DI (Dependency Injection) - 의존성 주입
-	     : 구성 요소의 의존 관계가 외부 설정 파일로 정의됨 (필요할때마다 유연하게 사용)
-	  3. IoC (Inversion of Control) - 제어 반전
-	     : 객체 생명주기 관리를 스프링이 해줌
-	  4. AOP (Aspect Oriented Programming) - 관점 지향 프로그래밍
-	     : 기능을 분리하여 관리, 재사용성 큼**
-	  5. PSA (Potable Service Abstraction)
+  - 장점	
+    - 중복 코드를 줄여줌
+    - 로직 간단히
+    - 오픈소스 활용하기 좋음	
+  - 특징 
+    - POJO (Plain Old Java Object)
+       : Getter / Setter
+    - DI (Dependency Injection) - 의존성 주입
+       : 구성 요소의 의존 관계가 외부 설정 파일로 정의됨 (필요할때마다 유연하게 사용)
+    - oC (Inversion of Control) - 제어 반전
+       : 객체 생명주기 관리를 스프링이 해줌
+    - OP (Aspect Oriented Programming) - 관점 지향 프로그래밍
+       : 기능을 분리하여 관리, 재사용성 큼
+    -PSA (Potable Service Abstraction)
 	 
 	
 # Spring 객체 관리 : @Component 어노테이션을 포함한 클래스들의 인스턴스를 자동으로 생성/삭제
