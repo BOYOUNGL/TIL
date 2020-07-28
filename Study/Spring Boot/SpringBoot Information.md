@@ -26,6 +26,8 @@
  - 스프링부트 기동 : SpringApplicaiotn.run(FirstApplication.class, args);
  
 	 ex) 사무실에서 사용한 코드를 재구성, filename : TestApplication.java
+	 <pre>
+	 <code>
 		@SpringBootApplication
 		@ComponentScan({"com.test"})
 		public class FletaIbrmApplication {
@@ -33,8 +35,10 @@
 		    SpringApplication.run(TestApplication.class, args);
 		  }
 		}
+	</code>
+	</pre>
  
-  * 이때, 이 어노테이션이 설정된 클래스를 package 최상위라 생각하고 ComponentScan을 실행함.
+  ** 이때, 이 어노테이션이 설정된 클래스를 package 최상위라 생각하고 ComponentScan을 실행함. **
    때문에 이 어노테이션이 있는 클래스 파일 위치가 중요함. 
  
 200728 >> 이 부분은 Spring boot를 실행할때 필요한 듯?
@@ -46,6 +50,7 @@
 # spring-boot-dependencies : spring version 관리
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 [공부 일기]
 200728 >> 이미 완성된 Spring Boot를 사용한 프로젝트에 참여하고 있으나, 정작 Spring Boot에 대해 정확히 아는 바가 없다.
