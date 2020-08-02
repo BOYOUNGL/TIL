@@ -83,9 +83,33 @@
    2. spring-boot-test-configuration : 테스트를 위한 auto configuration
  
 # @MockBean
-   
-   
-   
+ - 특정 Bean을 대체하는 어노테이션 같음.(Spring Boot에 내장되있다함)
+ - 테스트 필요시
+ - 같은 유형의 빈이 다수 존재할때 name에 빈의 이름 지정후 원하는것으로 대체하게 함.
+   @MockBean(name="first")
+ 
+ 200802 >> MockBean과 Mock의 차이점에 대해 인터넷에 연관지어 나오는걸 봤음.
+           Mock에서 파생된게 MockBean이라는거 같은데.이건 추가적으로 확인해봐야할 것 같음
+	   -> Mock : 모의 객체라는 뜻
+   	   -> Bean이 Contrainer에 있을땐 MockBean 아니면 Mock인거 같다는 내용을 봄
+ 
+ # 로깅 구성
+  : application.properties에 로깅 수준, 패턴, 선택적 로그 파일 위치등을 추가하여 사용
+ - loggin.level.org.springframework.web=DEBUG
+   -> root 수준으로 하려면 : loggin.level.root=수준
+ - 파일 로깅 : logging.file or loggin.path
+ 	      logging.file=test.log (로그 파일 명)
+	      loggin.path=/log/test (로그 파일 위치)
+ - 파일 갯수 정의 : logging.file.max-history
+ - 파일 크기 정의 : logging.file.max-size
+ 
+ # 기존 설정 재사용
+  : @Import or @ImportResource를 통해 @Configuration or @SpringBootApplication이 있는 클래스에 추가
+ - 파일 시스템 위치시
+   @ImportResource("file:/study/test/application-context.xml")
+ - @Import : 명시된 클래스를 설정에 추가.컴포넌트 탐색이 안되거나 @Configuration의 자동감지를 비활성화했을때 
+	      
+  
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 [공부 일기]
