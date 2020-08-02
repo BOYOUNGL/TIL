@@ -55,6 +55,37 @@
    
 - spring-boot-dependencies : spring version 관리
 
+# @Bean
+ : 자동으로 컴포넌트 감지
+   팩토리 함수 사용 -> 빈의 생성자에 의해 추가 제어가 필요할때 유용
+   	 	   -> @Bean 어노테이션이 붙은 함수
+		      Bean을 애플리케이션 컨텍스트에 등록할 때 사용
+ - Bean명 = 함수명
+ - 함수는 매개변수를 가질 수 있으며 애플리케이션 컨텍스트의 다른 Bean을 연결
+
+# @profile
+ : 특정한 프로파일에서만 특정 Bean 등록 혹은 특정 프로파일에서 Bean 설정을 다르게 하고 싶을때
+   @Profile("first")
+   
+  - application.properties에서 사용할 프로파일 설정 가능
+     -> spring.profiles.active = 설정값
+     -> my.name = [프로파일명]junseo : 프로파일용 프로퍼티(프로퍼티 파일의 key값으로 잡는듯
+        ex) my.name = [first]junseo
+	    my.name = [second]junseo
+     -> spring.profiles.include  = 추가할 프로파일 (활성화하라는것)
+  - 프로파일마다 해당 프로파일 프로퍼티 설정이 가능한것으로 보임
+    application.properties보다 우선순위 높음
+
+# @test
+ - junit : java에서 독립된 단위 테스트 지원(프레임워크)
+ - spring-boot-starter-test
+   1. spring-boot-test : 핵심 기능
+   2. spring-boot-test-configuration : 테스트를 위한 auto configuration
+ 
+# @MockBean
+   
+   
+   
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 [공부 일기]
@@ -63,3 +94,5 @@
           뒤죽박죽 정리되는 내용은 추후 이해도가 높아졌을때 다시 정리하는것을 목표로 공부한대로 작성하고 읽고 수정하고를 반복하고자 한다.
 	  
 200731 >> 공부하는 책 구성에 맞게 Bean 구성을 찾아봐야함.
+
+200802 >> 예제가 생각대로 풀리지 않아 이론 먼저....
