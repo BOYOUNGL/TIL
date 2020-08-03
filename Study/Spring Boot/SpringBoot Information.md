@@ -7,7 +7,18 @@
   3. 많은 라이브러리를 쉽게 가져와 사용 가능
   4. 가능한 자동으로 설정
   5. 설정 정보를 담는 XML 작성이 필요없어 가벼움 -> 개발 환경 구축을 쉽게
-
+ - 내장 웹 서버
+   : 자동 설정에 웹 서버(톰캣, 서블릿 등) 기본 설정이 포함되며, 톰캣이 내장됨.때문에 Run할 경우 Spring Boot App을 선택하여 돌리되, 실행중인 톰캣은 중지할 것
+  - 웹서버 사용 안할때
+   spring.main.web-application-type=none
+  - port 변경 : application.properties 파일에 설정
+   server.port=8080 (기본 값.0일 경우는 랜덤으로 사용하는듯)
+ - JAR
+  - jar 하나의 파일로 묶어 이 파일만 실행하면 됨.
+    spring-boot-maven-plugin(자체 메이븐 플러그인)으로 메이븐 프로젝트를 .jar 파일로 만들어준다함.
+    200803 >> 여기서 궁금한건 gradle도 마찬가지인가?
+  - 독립적으로 실행
+  
  
 # Java Configure : XML 대신 java로 Bean 생성
  1. @SpringBootApplication (3가지 어노테이션)
@@ -22,9 +33,10 @@
 	근데 Spring META-INF 파일을 읽는거라 EnableAutoConfiguration를 사용하지 않을수도 있다고 함.
  
 
-
 # Application.java 파일 내용
- - @SpringBootApplication : @EnableAutoConfiguraion, @ComponentScan, @Configuration을 하나로 묶어둔것
+ - @SpringBootApplication 
+   : @EnableAutoConfiguraion, @ComponentScan, @Configuration을 하나로 묶어둔 것
+     최상위 패키지가 되는듯
  
  - 스프링부트 기동 : SpringApplicaiotn.run(FirstApplication.class, args);
  
@@ -62,6 +74,26 @@
 		      Bean을 애플리케이션 컨텍스트에 등록할 때 사용
  - Bean명 = 함수명
  - 함수는 매개변수를 가질 수 있으며 애플리케이션 컨텍스트의 다른 Bean을 연결
+ 
+
+# @Component
+ : @Autowired(객체의 타입이 일치 확인 후 자동으로 주입) 할때 초기화 메소드가 실행되며 다른곳에서 호출없이도 실행 됨.
+
+
+# @PostConstrut
+ : 생성자가 호출됫을때 bean이 초기회 되지 않은 상태인데, 이 어노테이션을 사용하면 bean이 초기화와 동시에 의존성 확인 가능
+
+
+# @Override
+ : Spring boot 2.1부터는 Bean 오버라이딩 불가능.
+ <pre>
+ <code>
+ 	//이런식으로 사용이 안되는듯
+	@overrid
+	@Bean
+<code>
+ </pre>
+
 
 # @profile
  : 특정한 프로파일에서만 특정 Bean 등록 혹은 특정 프로파일에서 Bean 설정을 다르게 하고 싶을때
@@ -76,11 +108,13 @@
   - 프로파일마다 해당 프로파일 프로퍼티 설정이 가능한것으로 보임
     application.properties보다 우선순위 높음
 
+
 # @test
  - junit : java에서 독립된 단위 테스트 지원(프레임워크)
  - spring-boot-starter-test
    1. spring-boot-test : 핵심 기능
    2. spring-boot-test-configuration : 테스트를 위한 auto configuration
+ 
  
 # @MockBean
  - 특정 Bean을 대체하는 어노테이션 같음.(Spring Boot에 내장되있다함)
@@ -93,6 +127,7 @@
 	   -> Mock : 모의 객체라는 뜻
    	   -> Bean이 Contrainer에 있을땐 MockBean 아니면 Mock인거 같다는 내용을 봄
  
+ 
  # 로깅 구성
   : application.properties에 로깅 수준, 패턴, 선택적 로그 파일 위치등을 추가하여 사용
  - loggin.level.org.springframework.web=DEBUG
@@ -102,6 +137,7 @@
 	      loggin.path=/log/test (로그 파일 위치)
  - 파일 갯수 정의 : logging.file.max-history
  - 파일 크기 정의 : logging.file.max-size
+ 
  
  # 기존 설정 재사용
   : @Import or @ImportResource를 통해 @Configuration or @SpringBootApplication이 있는 클래스에 추가
@@ -120,3 +156,5 @@
 200731 >> 공부하는 책 구성에 맞게 Bean 구성을 찾아봐야함.
 
 200802 >> 예제가 생각대로 풀리지 않아 이론 먼저....
+
+200803 >> 연결되서 이해를 해야하는데 그건 안되는거 같음.뒤돌아서면 잊어버리니 계속 읽어보는게 답이겠거니 함
