@@ -11,10 +11,10 @@ Today I learned✔
    - [Spring Information](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring/Spring%20Information.md)
  3. Spring Boot
    - [SpringBoot Information](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/SpringBoot%20Information.md)
-   - [build.gradle 파익 작성해 보기](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/build.gradle.md)
+   - [build.gradle 파일 작성해 보기](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/build.gradle.md)
    - [configuration](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/configuration.md)
  4. Docker
- 
+   
 # Work
  1. ETC
  2. JAVA
