@@ -9,15 +9,15 @@
   5. 설정 정보를 담는 XML 작성이 필요없어 가벼움 -> 개발 환경 구축을 쉽게
  - 내장 웹 서버
    : 자동 설정에 웹 서버(톰캣, 서블릿 등) 기본 설정이 포함되며, 톰캣이 내장됨.때문에 Run할 경우 Spring Boot App을 선택하여 돌리되, 실행중인 톰캣은 중지할 것
-  - 웹서버 사용 안할때
-   spring.main.web-application-type=none
-  - port 변경 : application.properties 파일에 설정
-   server.port=8080 (기본 값.0일 경우는 랜덤으로 사용하는듯)
+   - 웹서버 사용 안할때
+     spring.main.web-application-type=none
+   - port 변경 : application.properties 파일에 설정
+     server.port=8080 (기본 값.0일 경우는 랜덤으로 사용하는듯)
  - JAR
-  - jar 하나의 파일로 묶어 이 파일만 실행하면 됨.
-    spring-boot-maven-plugin(자체 메이븐 플러그인)으로 메이븐 프로젝트를 .jar 파일로 만들어준다함.
-    200803 >> 여기서 궁금한건 gradle도 마찬가지인가?
-  - 독립적으로 실행
+   - jar 하나의 파일로 묶어 이 파일만 실행하면 됨.
+     spring-boot-maven-plugin(자체 메이븐 플러그인)으로 메이븐 프로젝트를 .jar 파일로 만들어준다함.
+     200803 >> 여기서 궁금한건 gradle도 마찬가지인가?
+   - 독립적으로 실행
   
  
 # Java Configure : XML 대신 java로 Bean 생성
@@ -28,9 +28,9 @@
 			@Component 어노테이션이 있는 클래스 검색
  - @EnableAutoConfiguration : 어플리케이션에 추가된 설정을 자동으로 추가(환경설정에 필요한 설정값들을 등록)
  
-	여기서 @ComponentScan와 @EnableAutoConfiguration가 중요하다 함!
-	Bean이 이 두 단계로 나눠서 읽힌다고...
-	근데 Spring META-INF 파일을 읽는거라 EnableAutoConfiguration를 사용하지 않을수도 있다고 함.
+  + 여기서 @ComponentScan와 @EnableAutoConfiguration가 중요하다 함!
+  Bean이 이 두 단계로 나눠서 읽힌다고...
+  근데 Spring META-INF 파일을 읽는거라 EnableAutoConfiguration를 사용하지 않을수도 있다고 함.
  
 
 # Application.java 파일 내용
@@ -39,8 +39,8 @@
      최상위 패키지가 되는듯
  
  - 스프링부트 기동 : SpringApplicaiotn.run(FirstApplication.class, args);
- 
-	 ex) 사무실에서 사용한 코드를 재구성, filename : TestApplication.java
+   ex) 사무실에서 사용한 코드를 재구성, filename : TestApplication.java
+	 
 	 <pre>
 	 <code>
 		@SpringBootApplication
@@ -59,21 +59,34 @@
    run()에는 JAVA Config 클래스가 들어간다(@Configuration이 있어야 JAVA Config)
  - Application Context가 Java Configure을 읽으며 run()안에서 확인 가능하다함.
  
-200728 >> 이 부분은 Spring boot를 실행할때 필요한 듯?
+200728 >> 이 부분은 Spring boot를 실행할때 무조건 필요한 듯.
  	  일을 하다가 이 파일이 두개가 있어서 생긴 버그를 봤었던 기억이 있음.
-          정확한 오류 내용은 기억나지 않으나 중복될 수 없다는 메시지였던거 같음.한 개를 지워주니 잘 해결 되었다.
+          정확한 오류 내용은 기억나지 않으나 중복될 수 없다는 메시지였던걸로 기억함.두개 중 사용하지 않는 파일을 지워주니 잘 해결 되었다.
  	  중복이 일어나면 안 되는 이유가 위에서 말한 스프링의 객체 관리가 Singleton 패턴으로 이루어지기 때문이었구나 싶음.
- 
    
 - spring-boot-dependencies : spring version 관리
 
 # @Bean
  : 자동으로 컴포넌트 감지
+   https://endorphin0710.tistory.com/93
+   이 블로그에서 스프링 레퍼런스 메뉴얼 번역을 조금 가져왔다.
+
+   스프링 IoC(Inversion of Control) 컨테이너에 의해서 관리되고 애플리케이션의 핵심을 이루는 객체들을 스프링에서는 Beans라고 부른다.
+   빈은 스프링 Ioc 컨테이너에 의해서 인스턴스화되어 조립되거나 관리되는 객체를 말합니다.
+   즉 Spring Bean과 Java 일반 객체의 차이는 없음.스프링 컨테이너에서 만들어지면 스프링 빈일뿐이라는거다.
+
+   Beans는 설정 메타 데이터(XML)에 의해 생성됨 (Component Scanning 혹은 Bean 설정 파일을 통해)
+
+   Spring은 모든 bean을 기본적으로 singleton으로 관리
+   여기서 singleton은 spring 컨테이너에서 한번만 생성되며 컨테이너가 사라지면 함께 없어짐
+ 
    팩토리 함수 사용 -> 빈의 생성자에 의해 추가 제어가 필요할때 유용
    	 	   -> @Bean 어노테이션이 붙은 함수
 		      Bean을 애플리케이션 컨텍스트에 등록할 때 사용
  - Bean명 = 함수명
  - 함수는 매개변수를 가질 수 있으며 애플리케이션 컨텍스트의 다른 Bean을 연결
+ 
+ - Prototype : 모든 요청에서 새로운 객체를 생성
  
 
 # @Component
