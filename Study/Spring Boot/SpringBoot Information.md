@@ -68,6 +68,10 @@
 
 # @Bean
  : 자동으로 컴포넌트 감지.
+ 
+ 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶은 경우 (개발자가 생성한 Class에 @Bean 선언 할 수 없음)
+ (참고 : https://jojoldu.tistory.com/27)
+ 
   200806 >> 외부의 객체를 주입시킬때 사용?(다시 확인해볼것)
    https://endorphin0710.tistory.com/93
    이 블로그에서 스프링 레퍼런스 메뉴얼 번역을 조금 가져왔다.
@@ -80,6 +84,7 @@
 
    Spring은 모든 bean을 기본적으로 singleton으로 관리
    여기서 singleton은 spring 컨테이너에서 한번만 생성되며 컨테이너가 사라지면 함께 없어짐
+   
  
    팩토리 함수 사용 -> 빈의 생성자에 의해 추가 제어가 필요할때 유용
    	 	   -> @Bean 어노테이션이 붙은 함수
@@ -88,11 +93,32 @@
  - 함수는 매개변수를 가질 수 있으며 애플리케이션 컨텍스트의 다른 Bean을 연결
  
  - Prototype : 모든 요청에서 새로운 객체를 생성
- 
+
+**Bean은 Bean 생성 Autowired는 Bean 주입!!**
 
 # @Component
  : @Autowired(객체의 타입이 일치 확인 후 자동으로 주입) 할때 초기화 메소드가 실행되며 다른곳에서 호출없이도 실행 됨.
  - 사용자가 빈객체를 만들어 필요한 내용을 직접 만들어 스캔 할 수 있도록 해당 어노테이션을 추가
+   (참고 : https://articles09.tistory.com/28)
+ 	ex) xml 파일에 아래와 같이 등록만 하면 다른 클래스에서 똑같이 Bean만 등록하면 됨
+     	    <baen id="testMapper" class="study.test.TestMapper"></bean>
+     	    
+	    클래스에 의존하려면?
+	    1. 
+	    <pre><code>
+	    	@Autowired
+	    	public test(TestMapper testMapper) {
+	    		this.testMapper = testMapper
+	    	}
+	     </code></pre>
+	    2.
+	    <pre><code>
+	    	public class test {
+	    		@Autowired
+			private TestMapper testMapper;
+	    	}
+	     </code></pre>
+	    
 
 
 # @PostConstrut
@@ -127,6 +153,11 @@
      -> spring.profiles.include  = 추가할 프로파일 (활성화하라는것)
   - 프로파일마다 해당 프로파일 프로퍼티 설정이 가능한것으로 보임
     application.properties보다 우선순위 높음
+
+
+# PropertySource
+ - application.properties가 아닌 다른 파일을 사용하고자 할때 classpath를 이용해 추가 파일을 사용할 수 있음
+  @PropertySource("classpath:your-external.propertyies")
 
 
 # @test
@@ -183,3 +214,5 @@
 200805 >> 이것저것 찾아서 읽다보니 사용하는 라이브러리에 대해 공부를 제대로 하라고 함.
 	  버전이나 라이브러리를 잘못 넣어 문제가 생기는 경우가 있다고...
 	  쓰고자하는 기능에 대해 제대로된 이해가 없으면 버그가 나도 아무것도 할 수 없다는데 뼈맞았다...
+	  
+200806 >> 스터디 모이는 날.확실히 공부한 내용을 이리저리 말하며 찾아보니 각자가 이해한 눈높이에서 설명이 오고가서 이해가 잘 갔다.
