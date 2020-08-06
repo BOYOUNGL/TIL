@@ -21,12 +21,12 @@
   
  
 # Java Configure : XML 대신 java로 Bean 생성
- 1. @SpringBootApplication (3가지 어노테이션)
+ 1. @SpringBootApplication (3가지 어노테이션 포함함 때문에 이 어노테이션으로 Spring Boot 실행이 가능)
  - @Configuration : 클래스에 이 어노테이션이 붙어 있으면 스프링은 해당 클래스를 JAVA Config로 간주
  - **@ComponentScan** : 이 어노테이션은 basePackage를 지정없이도 main class가 위치한 패키지를 Root Package로 보고 그 이하의 모든 컴포넌트 클래스들을 Bean으로 등록
    	                FirstApplication.class는 메인 클래스로 examples.boot.first 패키지에 위치하며 컴포넌트 스캔의 루트 패키지이다.(하위 모든 컴포넌트 검색)
 			@Component 어노테이션이 있는 클래스 검색
- - @EnableAutoConfiguration : 어플리케이션에 추가된 설정을 자동으로 추가(환경설정에 필요한 설정값들을 등록)
+ - @EnableAutoConfiguration : 어플리케이션에 추가된 설정을 자동으로 추가(환경설정에 필요한 설정 값들을 등록)
  
   + 여기서 @ComponentScan와 @EnableAutoConfiguration가 중요하다 함!
   Bean이 이 두 단계로 나눠서 읽힌다고...
