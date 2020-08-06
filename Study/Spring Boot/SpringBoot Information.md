@@ -21,7 +21,7 @@
   
  
 # Java Configure : XML 대신 java로 Bean 생성
- 1. @SpringBootApplication (3가지 어노테이션 포함함 때문에 이 어노테이션으로 Spring Boot 실행이 가능)
+ 1. @SpringBootApplication (3가지 어노테이션 포함 때문에 이 어노테이션으로 Spring Boot 실행이 가능)
  - @Configuration : 클래스에 이 어노테이션이 붙어 있으면 스프링은 해당 클래스를 JAVA Config로 간주
  - **@ComponentScan** : 이 어노테이션은 basePackage를 지정없이도 main class가 위치한 패키지를 Root Package로 보고 그 이하의 모든 컴포넌트 클래스들을 Bean으로 등록
    	                FirstApplication.class는 메인 클래스로 examples.boot.first 패키지에 위치하며 컴포넌트 스캔의 루트 패키지이다.(하위 모든 컴포넌트 검색)
@@ -67,7 +67,8 @@
 - spring-boot-dependencies : spring version 관리
 
 # @Bean
- : 자동으로 컴포넌트 감지
+ : 자동으로 컴포넌트 감지.
+  200806 >> 외부의 객체를 주입시킬때 사용?(다시 확인해볼것)
    https://endorphin0710.tistory.com/93
    이 블로그에서 스프링 레퍼런스 메뉴얼 번역을 조금 가져왔다.
 
@@ -91,6 +92,7 @@
 
 # @Component
  : @Autowired(객체의 타입이 일치 확인 후 자동으로 주입) 할때 초기화 메소드가 실행되며 다른곳에서 호출없이도 실행 됨.
+ - 사용자가 빈객체를 만들어 필요한 내용을 직접 만들어 스캔 할 수 있도록 해당 어노테이션을 추가
 
 
 # @PostConstrut
