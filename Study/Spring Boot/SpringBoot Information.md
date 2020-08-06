@@ -109,6 +109,11 @@
 <code>
  </pre>
 
+# 속성 외부화 
+ - application.properties
+   - 외부 : 사용자가 만든 properties (우선 순위 더 높음)
+   - 내부 : 내장된 propertiesㅎ
+ - 폴더 상위에 있을 수록 적용 순위 높은 듯
 
 # @profile
  : 특정한 프로파일에서만 특정 Bean 등록 혹은 특정 프로파일에서 Bean 설정을 다르게 하고 싶을때
@@ -125,6 +130,7 @@
 
 
 # @test
+ : (선언된 메소드, 클래스)해당 테스트가 진행
  - junit : java에서 독립된 단위 테스트 지원(프레임워크)
  - spring-boot-starter-test
    1. spring-boot-test : 핵심 기능
