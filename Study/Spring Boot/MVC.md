@@ -81,7 +81,9 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 		1. 객체지향 객체의 직렬화는 객체와 관계된 메소드를 포함하지 않음
 		2. 객체의 메모리 표현을 저장 공간 또는 전송에 적합하며, 데이터 포맷으로 변환하는 과정임.
  - @Service : Spring Boot에서 이 Class를 감지, 객체 생성..???
- - @RunWith : Class내의 Test method를 지정.Junit framework 확장판.
+ - @RunWith : Class내의 Test method를 지정.
+ 	      Junit framework 확장판.
+	      스스로 고유한 기능을 만들어 추가가 가능
  - @WebMvcTest : Mock MVC 기반의 테스트 생성
    Controller를 수행을 돕는 최소한의 Spring Boot Application 생성.
  - 모키토 : 단위 테스트를 위한 Java Mocking Framework
@@ -92,7 +94,16 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  
  
 # Thymeleaf
+ - spring boot 권장 사용
+ - HTMl Tag를 그대로 사용하며 Model의 data th:text="${ }"와 [[${ }]]로 이용
+  ex) <a th:href="@{test.html}" href="#">
  - spring-boot-starter-thymeleaf
   : 위의 의존성 추가로 Thymeleaf 라이브러리와 Thymeleaf Spring Dialect를 가져 올 수 있으며,
     스프링 부트는 자동으로 ThymeleafViewResolver를 구성
 	ThymeleafViewResolve는 뷰를 해석, 렌더링하기 위해 ThymeleafTemplateEngine이 필요.
+ - Model(Model Class = 요청 처리 메소드)
+   모든 Method는 org.springframework.ui.Model의 메소드 인자로 가지고 있으며 모델에 데이터를 넣을 수 있음
+ - return시 렌더링 할 View명을 반환하여 ThymeleafViewResolver로 전달되어 classpath:/templates/study/test.html의 경로가 됨.
+   **왜나하면 Thymeleaf file 위치는 반드시 src/main/resource/templates여야 함**
+ - @RequestParam : 요청 인자가 메소드 인자로 사용
+	ex) @RequestParam("data") String text
