@@ -142,8 +142,43 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  : 메시지 설정파일을 모아놓고 로컬라이징하여 접속하는 세션(Accept-Language 헤더 )의 지역에 따라 자동으로 로딩
    ApplicationContext 컨테이너가 초기화 될 때 MessageSource를 구현한 bean을 찾아서 내부 프로퍼티 인 MessageSource에 등록하는데,
    이때 id가 messageSource인 것을 찾아 즉시 캐스팅 시도를 하기 때문에 구현체가 아니라면 컨테이너 초기화에 실패한다함.
- - @MessageSource : 메시지 소스를 이용하여 메시지 처리 가능.
+ - @MessageSource : 메시지를 다국화함.
  		    페이지 템플릿에 특수한 Tag를 사용 or 메시지 find
  - properties 파일명 형식 :  basname_언어코드_국가코드.properties
  
  
+# 사용자 언어 결정
+ - LocaleResolver : DispatcherServelet이 LocalResolver를 통해 사용자 식별
+ 		   언어 변경이 가능하게 하려면 LocaleResolver를 사용할 것
+		   즉,접속한 사용자에 맞는 언어를 보여주기 위해 브라우저의 useragent, 쿠키, 세션을 보고 locale 값을 처리
+ 	1. LocaleChangeInterceptor : Request의 Locale 정보에 의해 Locale을 변경(사용자가 url를 통해 언어를 변경할 경우 사용)
+				     현재 HTTP 요청에 특정 인자(paramName, 기본값 local)를 확인하여 감지.
+				     
+				     LocaleChangeInterceptor를 빈으로 추가 후 interceptor로 등록하여 사용
+				     여기서 Interceptor 등록은 WebMvcConfigurer에서 addInterceptors 메소드 이용
+	2. HandlerInterceptor : 세션/쿠키 검증
+ - spring.mvc.locale.resolver
+ 	1. ACCEPT(기본값) : AcceptHeaderLocaleResolver(Spring boot에서 기본으로 등록된 언어 Resolver) 생성
+			   AcceptHeaderLocaleResolver : HTTP 요청의 Accept-Language 헤더를 감지하여 언어 결정(브라우저 언어 설정에 의한 값)
+			   200809 >> 앞서 공부한 Application 국제화랑 비슷해보임.
+			   	     책에 보면 사용자 운영체제에 설정된 언어를 수정할 수 없어 사용자 언어 변경이 불가능하다 되어있음.
+				     그럼 아래의 FixedLocalResolver와 뭐가 다른거지..??
+	2. FIXED : FixedLocalResolver -> 항상 동일하게 고정된 언어를 반환하지만(기본값은 JVM 기본 언어 반환) defaultLocale 속성 설정 시 다른 언어로 반환이 가능
+ - SessionLocalResolver : 사용자 세션에 사전 정의된 속성 감지후 언어 결정
+ 			  세션이 없다면? -> Accept-Language HTTP 헤더로부터 기본 언어 설정
+			  		  defaultLocal속성을 설정할수 있고, 언어가 저장된 세션 속성을 변경해 사용자 언어도 변경이 가능
+ - CookieLocaleResolver : 사용자 브라우저 쿠키를 감지하여 언어 결정.
+ 			  쿠키가 없다면? -> Accept-Language HTTP 헤더로부터 기본 언어 결정
+			  		   defaultLocale 속성을 
+	- cookieName
+	- cookieMaxAge : cookie가 몇 초 동안 저장되는지에 대한 정보값.
+			 저장된 값이 -1이라면? -> 브라우저 종료시 쿠키 비활성화
+ - 사용자 언어 변경 밥법 : LoclaResolver.setLocale() 호출 or LocaleChangeInterceptor 매핑
+ 
+  **결국 다국화 처리를 위해선 이런 조합이 필요함!!!
+  LocaleChangeInterceptor + messageSource**
+  
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------
+  200809 >>
+	    참고하면 좋을것 같은 블로그를 공부하기 위해 적어둔다.
+	    https://unabated.tistory.com/entry/%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%B2%98%EB%A6%AC-localeResolver-messageSource
