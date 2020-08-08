@@ -96,7 +96,11 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 # Thymeleaf
  - spring boot 권장 사용
  - HTMl Tag를 그대로 사용하며 Model의 data th:text="${ }"와 [[${ }]]로 이용
-  ex) <a th:href="@{test.html}" href="#">
+  ex) 
+  <pre><code>
+  	<a th:href="@{test.html}" href="#">
+  </code></pre>
+ - MessageSource에서 메시지 반영 : #{}
  - spring-boot-starter-thymeleaf
   : 위의 의존성 추가로 Thymeleaf 라이브러리와 Thymeleaf Spring Dialect를 가져 올 수 있으며,
     스프링 부트는 자동으로 ThymeleafViewResolver를 구성
@@ -106,4 +110,40 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  - return시 렌더링 할 View명을 반환하여 ThymeleafViewResolver로 전달되어 classpath:/templates/study/test.html의 경로가 됨.
    **왜나하면 Thymeleaf file 위치는 반드시 src/main/resource/templates여야 함**
  - @RequestParam : 요청 인자가 메소드 인자로 사용
-	ex) @RequestParam("data") String text
+  		   지정한 키가 빈값으로 들어온다면(null) Bad Request로  400번대 에러 발생.
+		   Default Value를 지정하여 해당 버그를 방지해야함.
+		   또한 Map으로도 받아 올 수 있음
+   ex) @RequestParam("data") String text
+       @RequsetPara HashMap<String, String> TestMap
+
+
+# 예외 처리
+ : Spring boot에서 default가 활성화
+   Server.error.whitelabel.enable를 false로 놓으면 전체 비활성화 가능.
+    -> 예외 처리는 spring, spring boot에서 제공되는 일반적 예외 처리 메커니즘 대신 서블릿 컨테이너에서 처리됨
+   일반 오류 페이지 구성 시 사용하는 속성
+     1. 주로 모델에 어떤 항목을 포함할지
+     2. 선택적으로 화면에 표시
+ - 기본 일반 오류 페이지 사용자 정의
+ - src/main/resources/templates에서 error.html 추가시 오류 페이지 변경 가능
+ - server.error.include-exception=true && server.error.include-stacktrace=always
+ 	=> 맞춤형 오류 페이지에 예외 클래스명, strack trace가 포함됨
+ ?? stack trace : 예외가 던져지는 중간에 애플리케이션이 있던 메소드 호출 목록
+200808 >> 예외처리를 제대로 공부하지 않으면 시간낭비를 많이하겠구나 싶었다.디버깅하는 연습도 꾸준히 해야겠구나.
+ - 특정 HTTP 상태 코드별 오류 페이지 추가
+   : src/main/resources/templates/error에 <http-status>.html을 추가 후 적용 가능.
+ - @ErrorAttributes : 오류가 발생시 응답 모델을 생성
+		      bean 등록시 BasicErrorController는 해당 ErrorAttributes를 사용
+		      기본적으로 사용, 구성되는것은 DefaultErrorAttributes
+ - LibarayApplication : 
+	
+
+# Application 국제화 (다국어 지원)
+ : 메시지 설정파일을 모아놓고 로컬라이징하여 접속하는 세션(Accept-Language 헤더 )의 지역에 따라 자동으로 로딩
+   ApplicationContext 컨테이너가 초기화 될 때 MessageSource를 구현한 bean을 찾아서 내부 프로퍼티 인 MessageSource에 등록하는데,
+   이때 id가 messageSource인 것을 찾아 즉시 캐스팅 시도를 하기 때문에 구현체가 아니라면 컨테이너 초기화에 실패한다함.
+ - @MessageSource : 메시지 소스를 이용하여 메시지 처리 가능.
+ 		    페이지 템플릿에 특수한 Tag를 사용 or 메시지 find
+ - properties 파일명 형식 :  basname_언어코드_국가코드.properties
+ 
+ 
