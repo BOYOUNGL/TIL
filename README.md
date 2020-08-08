@@ -9,7 +9,7 @@ Today I learned✔
  1. ETC
  2. Spring
    - [Spring Information](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring/Spring%20Information.md)
- 3. Spring Boot
+ 3. Spring Boot (Spring Boot2 Recipes라는 책을 기본으로 study 진행)
    - [configuration](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/configuration.md)
    - [build.gradle 파일 작성해 보기](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/build.gradle.md)
    - [SpringBoot Information](https://github.com/BOYOUNGL/TIL/blob/master/Study/Spring%20Boot/SpringBoot%20Information.md)
