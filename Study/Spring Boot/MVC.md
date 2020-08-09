@@ -210,8 +210,43 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 	2. serveltPath : /study/test.do : servlet 주소
   
   
-  # SSL 구성
-  
+# SSL 구성
+ : 인증을 받아 키 저장소에 적재 후 server.ssl 네임스페이스 설정을 이용해 키 저장소 구성.
+     HTTPS만을 통해 접속이 가능하도록 구성(default값이 HTTPS)
+ - server.ssl.key-store : 내장 컨테이너 구성을 위해 키 저장소 정보를 입력
+    			    SSL이 필요함(application 보안 인증서 필요)
+     - 자가 서명 인증서
+        1. keytool을 통해 인증서 생성
+	<pre><code>
+				(알고리즘)	  (별칭 = 파일명)    (key 저장소)
+		keytool -genkey -keyalg RSA -alias study-test -keystore study-test.pfx
+		-storepass password -validity 3600 -keysize 4096 -storetype pkcs12
+				    (3600일 동안 유효)
+	</code></pre>
+	?? keystore = 비밀키, 관련된 인증서나 인증서 체인을 가지고 있음
+	2. 인증된 기관에서 발급받지 않앟기 때문에 안전하지 않다는 경고 발생
+     - 키 장소를 위한 spring boot 구성
+	     <pre><code>
+		server.ssl.key-store=classpath:study-test.pfx
+		server.ssl.key-store-type=pkcs12 //저장소 유형
+		server.ssl.key-store-password=password
+		server.ssl.key-password=password
+	     </code></pre>
+ - HTTP and HTTPS
+     >> 차이 : HTTP는 정보를 Text로 주고 받음.HTTPS는 여기에 S(Secure Socket)을 추가.
+     	      즉, 기본적인 것은 동일하지만 '보안' 요소가 추가됨
+	      default값은 HTTPS이며
+	      	HTTP port : 8080
+		HTTPS port : 8443
+    1. TomcatServletWebServerFactory : 내장된 톰캣 접속자 추가 설정(bean에 추가 필요), @configuration 어노테이션이 추가된 class내에 있어야 함.
+    	- 일반적 spring boot는 컨테이너 감지 후 사용할 WebServerFactory 선택.
+	- HTTP와 HTTPS를 동시에 사용하려면 수동으로 추가가 필요
+	  Spring 보안을 사용하여 HTTP 대신 HTTPS 강제 가능(리다이렉션 내용 같음)
+ - HTTP를 HTTPS로 리다이렉션
+  : HTTP, HTTPS 모두 사용 가능하게 만들었더라도 모든 요청은 HTTPS로 가는게 좋다고 함.
+     	- 모든 URL은 SecurityConstraint로 보호해야함.
+	- Spring Boot에서 특수한 TomcatContextCustomizer를 사용해 톰캣 시작전 컨텍스트의 사전 처리를 가능하게 함.
+	
   -----------------------------------------------------------------------------------------------------------------------------------------------------------
   200809 >>
 	    참고하면 좋을것 같은 블로그를 공부하기 위해 적어둔다.
