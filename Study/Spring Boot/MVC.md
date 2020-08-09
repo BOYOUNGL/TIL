@@ -152,7 +152,6 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 		   즉,접속한 사용자에 맞는 언어를 보여주기 위해 브라우저의 useragent, 쿠키, 세션을 보고 locale 값을 처리
  	1. LocaleChangeInterceptor : 요청을 가로채서 언어를 감지.Request의 Locale 정보에 의해 Locale을 변경(사용자가 url를 통해 언어를 변경할 경우 사용)
 				     현재 HTTP 요청에 특정 인자(paramName, 기본값 local)를 확인하여 감지.
-				     
 				     LocaleChangeInterceptor를 빈으로 추가 후 interceptor로 등록하여 사용
 				     여기서 Interceptor 등록은 WebMvcConfigurer에서 addInterceptors 메소드 이용
 	2. HandlerInterceptor : 세션/쿠키 검증
