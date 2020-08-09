@@ -95,10 +95,9 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  
 # Thymeleaf
  - spring boot 권장 사용
- - HTMl Tag를 그대로 사용하며 Model의 data th:text="${ }"와 [[${ }]]로 이용
-  ex) 
+ - HTMl Tag를 그대로 사용하며 Model의 data th:text="${ }"와 [[${ }]]로 이용 
   <pre><code>
-  	<a th:href="@{test.html}" href="#">
+  	<a th:href="@{test.html}" href="#"></a>
   </code></pre>
  - MessageSource에서 메시지 반영 : #{}
  - spring-boot-starter-thymeleaf
@@ -135,7 +134,7 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  - @ErrorAttributes : 오류가 발생시 응답 모델을 생성
 		      bean 등록시 BasicErrorController는 해당 ErrorAttributes를 사용
 		      기본적으로 사용, 구성되는것은 DefaultErrorAttributes
- - LibarayApplication : 
+ - LibraryApplication : 
 	
 
 # Application 국제화 (다국어 지원)
@@ -151,7 +150,7 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  - LocaleResolver : DispatcherServelet이 LocalResolver를 통해 사용자 식별
  		   언어 변경이 가능하게 하려면 LocaleResolver를 사용할 것
 		   즉,접속한 사용자에 맞는 언어를 보여주기 위해 브라우저의 useragent, 쿠키, 세션을 보고 locale 값을 처리
- 	1. LocaleChangeInterceptor : Request의 Locale 정보에 의해 Locale을 변경(사용자가 url를 통해 언어를 변경할 경우 사용)
+ 	1. LocaleChangeInterceptor : 요청을 가로채서 언어를 감지.Request의 Locale 정보에 의해 Locale을 변경(사용자가 url를 통해 언어를 변경할 경우 사용)
 				     현재 HTTP 요청에 특정 인자(paramName, 기본값 local)를 확인하여 감지.
 				     
 				     LocaleChangeInterceptor를 빈으로 추가 후 interceptor로 등록하여 사용
@@ -163,7 +162,9 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 			   200809 >> 앞서 공부한 Application 국제화랑 비슷해보임.
 			   	     책에 보면 사용자 운영체제에 설정된 언어를 수정할 수 없어 사용자 언어 변경이 불가능하다 되어있음.
 				     그럼 아래의 FixedLocalResolver와 뭐가 다른거지..??
-	2. FIXED : FixedLocalResolver -> 항상 동일하게 고정된 언어를 반환하지만(기본값은 JVM 기본 언어 반환) defaultLocale 속성 설정 시 다른 언어로 반환이 가능
+				     >> 헤더에서 Locale 정보를 가져온다는게 다른점이었네.언어 변경이 불가능한게 맞음!
+	2. FIXED : FixedLocaleResolver -> 항상 동일하게 고정된 언어를 반환하지만(기본값은 JVM 기본 언어 반환.웹 요청관는 상관 없음) defaultLocale 속성 설정 시 다른 언어로 반환이 가능
+		    			  setLocale() 메서드를 지원 안함.
  - SessionLocalResolver : 사용자 세션에 사전 정의된 속성 감지후 언어 결정
  			  세션이 없다면? -> Accept-Language HTTP 헤더로부터 기본 언어 설정
 			  		  defaultLocal속성을 설정할수 있고, 언어가 저장된 세션 속성을 변경해 사용자 언어도 변경이 가능
@@ -171,12 +172,45 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  			  쿠키가 없다면? -> Accept-Language HTTP 헤더로부터 기본 언어 결정
 			  		   defaultLocale 속성을 
 	- cookieName
-	- cookieMaxAge : cookie가 몇 초 동안 저장되는지에 대한 정보값.
+	- cookieMaxAge : cookie 유효 시간
 			 저장된 값이 -1이라면? -> 브라우저 종료시 쿠키 비활성화
  - 사용자 언어 변경 밥법 : LoclaResolver.setLocale() 호출 or LocaleChangeInterceptor 매핑
  
   **결국 다국화 처리를 위해선 이런 조합이 필요함!!!
   LocaleChangeInterceptor + messageSource**
+  
+  
+  # 내장된 서버 선택 및 구성
+   :  spring boot는 톰캣, 제티, 언더토우가 classpath에 있는지 확인후 이에 맞게 컨테이너를 구성함.
+    - spinrg-boot-starter-web 의존성을 갖게되면 하위의 아티펙트 의존성을 갖게됨(다른 서블릿으로 변경하려면 아래와 같음)
+    	1. spring-boot-starter-tomcat
+	2. spring-boot-starter-jetty
+	3. spring-boot-starter-undertow
+  <pre><code>
+  	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter0web</artifactId>
+		<exclusions>
+			<exclusion> // 메이븐 의존성 제외
+				<groupId>org.spirngframework.boot</groupId>
+				<artifactId>spring-boot-starter-tomcat</articactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency> //제티 컨테이너 추가
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jetty</artifactId>
+	</dependency>
+  </code></pre>
+   - 내장된 컨테이너 모두 서블릿 명세를 지원하며 JSP 페이지를 지원.(default : 활성화)
+   - spring MVC 사용시 속성을 저장할 때 HTTP 세션을 사용.
+     일반 서블릿 구성도 HTTP 세션과 저장된 방법에 대한 구성이 가능
+   -  server.servlet.context-path or server.servlet.path
+  	1. contextPath : /JSP : 프로젝트명
+	2. serveltPath : /study/test.do : servlet 주소
+  
+  
+  # SSL 구성
   
   -----------------------------------------------------------------------------------------------------------------------------------------------------------
   200809 >>
