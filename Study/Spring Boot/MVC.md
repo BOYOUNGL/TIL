@@ -96,9 +96,9 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 # Thymeleaf
  - spring boot 권장 사용
  - HTMl Tag를 그대로 사용하며 Model의 data th:text="${ }"와 [[${ }]]로 이용 
-  <pre><code>
-  	<a th:href="@{test.html}" href="#"></a>
-  </code></pre>
+	  <pre><code>
+		th:href="@{test.html}" href="#" //a 태그에 사용시
+	  </code></pre>
  - MessageSource에서 메시지 반영 : #{}
  - spring-boot-starter-thymeleaf
   : 위의 의존성 추가로 Thymeleaf 라이브러리와 Thymeleaf Spring Dialect를 가져 올 수 있으며,
@@ -186,22 +186,22 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
     	1. spring-boot-starter-tomcat
 	2. spring-boot-starter-jetty
 	3. spring-boot-starter-undertow
-  <pre><code>
-  	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter0web</artifactId>
-		<exclusions>
-			<exclusion> // 메이븐 의존성 제외
-				<groupId>org.spirngframework.boot</groupId>
-				<artifactId>spring-boot-starter-tomcat</articactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-	<dependency> //제티 컨테이너 추가
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-jetty</artifactId>
-	</dependency>
-  </code></pre>
+		  <pre><code>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<exclusions>
+					<exclusion> // 메이븐 의존성 제외
+						<groupId>org.spirngframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</articactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency> //제티 컨테이너 추가
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-jetty</artifactId>
+			</dependency>
+		  </code></pre>
    - 내장된 컨테이너 모두 서블릿 명세를 지원하며 JSP 페이지를 지원.(default : 활성화)
    - spring MVC 사용시 속성을 저장할 때 HTTP 세션을 사용.
      일반 서블릿 구성도 HTTP 세션과 저장된 방법에 대한 구성이 가능
@@ -227,10 +227,12 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
 	2. 인증된 기관에서 발급받지 않앟기 때문에 안전하지 않다는 경고 발생
      - 키 장소를 위한 spring boot 구성
 	     <pre><code>
+	     
 		server.ssl.key-store=classpath:study-test.pfx
 		server.ssl.key-store-type=pkcs12 //저장소 유형
 		server.ssl.key-store-password=password
 		server.ssl.key-password=password
+		
 	     </code></pre>
  - HTTP and HTTPS
      >> 차이 : HTTP는 정보를 Text로 주고 받음.HTTPS는 여기에 S(Secure Socket)을 추가.
