@@ -106,7 +106,7 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
  - Model(Model Class = 요청 처리 메소드)  
    모든 Method는 org.springframework.ui.Model의 메소드 인자로 가지고 있으며 모델에 데이터를 넣을 수 있음  
  - return시 렌더링 할 View명을 반환하여 ThymeleafViewResolver로 전달되어 classpath:/templates/study/test.html의 경로가 됨.  
-   **왜나하면 Thymeleaf file 위치는 반드시 src/main/resource/templates여야 함**  
+   **왜냐하면 Thymeleaf file 위치는 반드시 src/main/resource/templates여야 하기 **  
  - @RequestParam : 요청 인자가 메소드 인자로 사용  
   		   지정한 키가 빈값으로 들어온다면(null) Bad Request로  400번대 에러 발생.  
 		   Default Value를 지정하여 해당 버그를 방지해야함.  
