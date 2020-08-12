@@ -206,7 +206,8 @@ Spring Boot는 classpath상에 사용 가능한 프레임워크와 이미 있는
    -  server.servlet.context-path or server.servlet.path  
   	1. contextPath : /JSP : 프로젝트명  
 	2. serveltPath : /study/test.do : servlet 주소  
-    
+   - 서블릿 내용 및 차이  
+      https://gofnrk.tistory.com/73
     
 # SSL 구성
  : 인증을 받아 키 저장소에 적재 후 server.ssl 네임스페이스 설정을 이용해 키 저장소 구성.  
