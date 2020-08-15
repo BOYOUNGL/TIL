@@ -66,8 +66,16 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
  - ResponseBodyEmitter : 비동기 Stream 형태로 server에서 client로 data 전달  
 						             하나의 결과 대신 다수의 객체를 Client에게 반환하고자 할대 유용.
 						             객체를 전달 시 HttpMessageConverter를 사용하여 결과를 반환
- - sseEmitter : ResponseBodyEmitter와 비슷하며 Spirng5에서 지원하는 HTTP 통신 기반임
- 
+ 	- .send() : 결과를 하나씩 반환
+	- .complete() : 응답을 전달할 Thread에서 요청을 완료 후 처리를 위해 반환
+	- completeWithError : 예외 발생이 일어나면 그 내용을 전달하기 위해 사용
+ - sseEmitter : ResponseBodyEmitter와 비슷하며 Spirng5에서 지원하는 HTTP 통신 기반임.  
+		요청 처리 메소드에서 이벤트 전달 시 SseEmitter 인스턴스 생성 후 반환
+	- 서버-전달-이벤트 : server -> client 전달되는 메시지, text/event-stream인 Content-Type header를 가짐
+	- text/event-stream : Stream Event임을 나타내며, 이때 Stream은 열린상태가 유지되어 Event alarm을 수신받음.
+	- event() 팩토리-메소드 : 인스턴스 생성 후 id와 event 항목을 추가 가능.
+	- HttpMessageConverter : 작성된 객체 JSON 타입으로 변환하며 data 태그에 작성됨
+	- SseEvemtBuilder : Event에 더 많은 정보를 추가.
  
 =======================================================================================================================================
  [참고]
