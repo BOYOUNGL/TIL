@@ -3,8 +3,9 @@ Spring MVC - 비동기
 Servlet API 초기, container가 요청을 받아 처리, 응답 결과가 client에게 전달될 때까지 Thread가 block  
 
 - Servlet : servlet program 개발시 반드시 구현되야하는 method를 선언하고 있는 interface  
-- servlet container : 서블릿 컨테이너는 요청이 들어 올때마다 새로운 java Tread를 만듦(container는 servlet의 생성 ~ 소멸 일련의 과정(Life cycle) 관리)  
-					            tomcat과 같은 WAS가 java file을 complie, class 생성, memory를 올려 Servlet 객체 생성  
+- servlet container : 서블릿 컨테이너는 요청이 들어 올때마다 새로운 java Tread를 만듦  
+		      (container는 servlet의 생성 ~ 소멸 일련의 과정(Life cycle) 관리)   
+		      tomcat과 같은 WAS가 java file을 complie, class 생성, memory를 올려 Servlet 객체 생성  
 
 동기 vs 비동기 : 처리 예정 작업들을 어떤식으로 '흐름'으로 처리할지
 블로킹 vs 논블로킹 : 어떠한 작업이 처리되야하는 전체적인 작업 '흐름'을 막거나 안 막거나
@@ -76,8 +77,8 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
 	- event() 팩토리-메소드 : 인스턴스 생성 후 id와 event 항목을 추가 가능.
 	- HttpMessageConverter : 작성된 객체 JSON 타입으로 변환하며 data 태그에 작성됨
 	- SseEvemtBuilder : Event에 더 많은 정보를 추가.
- 
-=======================================================================================================================================
+	
+ --------------------------------------------------------------------------------------------------------------------------
  [참고]
  https://12bme.tistory.com/555
  https://12bme.tistory.com/565
