@@ -77,8 +77,49 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
 	- event() 팩토리-메소드 : 인스턴스 생성 후 id와 event 항목을 추가 가능.
 	- HttpMessageConverter : 작성된 객체 JSON 타입으로 변환하며 data 태그에 작성됨
 	- SseEvemtBuilder : Event에 더 많은 정보를 추가.
-	
+
+# 웹 소켓
+ - WebSocket
+	1. 특정 Port를 통한 실시간 양방향 통신
+	2. web socket은 HTTP가 해결 할 수 없었던, Client 요청이 없음에도 Server로부터 응답받는 상황을 해결하기 위한 해결책
+	3. 실시간 서비스 또는 짧은 시간에 많은 양의 정보를 보낼때 적합
+	4. 익스플로러 구버전 지원 안됨 - 미지원 브라우저에 대한 문제점 해결 : Socket.io, SockJS
+ - HTTP(HyperText Transfer Protocol) : 하이퍼미디어 문서를 전송하기 위한 프로토콜
+	1. 단방향 통신
+	2. Port80을 사용, Request와 Response로 구성됨
+	3. Client의 요청이 있을 경우만 응답하여 정보 전송 후 바로 연결 종료
+ - spring-boot-starter-websocekt : 웹 소켓 지원을 자동으로 구성
+ - @EnableWebSocekt : 웹 소켓 활성화, 웹 소켓에 대해 대부분 자동 설정  
+				      @springBootApplication or @Configuration이 붙은 Class에서 사용  
+ - WebSocketHandler : web socket message와 생애주기 Event 처리를 위해 WebSocketHandler를 생성하고 endpoint URL을 등록
+	- webSocketHandler method
+		1. afterConnectionEstablished : 웹 소켓 접속이 열리고 사용 준비시 호출 (웹 소켓 연결 = front에서 web socket이 정확한 경로를 잡아 생성되는 것)
+		2. handleMassage : 웹 소켓 메시지가 핸들러에 도착했을 때 호출 (session에서 메시지 수신됫을때 실행)  
+						   메시지 타입에 따라 handleTextMessage(), handleBinaryMessage()가 실행 됨.
+		3. handleTransportError : 오류 발생 시 호출
+		4. afterConnectionClosed : 웹 소켓 접속 종료 후 호출 (session 종료)
+		5. supportsPartiaMessages : 핸들러가 부분 메시지 지원시 true일 경우 웹 소켓 메시지가 여러 호출 통해 도착
+ - Echo Server : 소켓이 처음 나올때 출력되는 server라는 이름을 썼음.echo는 관례적으로 붙임
+ - TextWebSocketHandler를 확장해 EchoHandler를 만들며 afterConnectionEstablished나 handle TextMessage method를 구현함.  
+ - TextMessage : 전송 받은 메시지 정보
+ - EchoHandler : 웹 소켓을 쓰기 위해..?
+ - 메시지 전달 과정
+	1. 접속 구성이 완료되면 TextMessage가 client에게 접속 구성 완료 메시지 전송.
+	2. 수신되면 페이로드(실제 메시지)는 추출되어 RECEIVED를 접두어로 추가한 후 client에 전달
+	3. URL이 포함된 핸들러 등록
+	4. WebSocketConfigurer를 구현한 @Configuration Class 생성후 registerWebSocketHandlers method에 등록
+	5. 해당 인터페이스를 EchoApplication class에 추가
+ - registerWebSocketHandlers : 
+ - WebSocketSession : spring에서 WebSocket connection이 맺어진 session
+ - @ClientEndPoint : endpoint는 데이터를 보내고 받음.sendMessage()를 통해 메시지 보냄
+	1. @OnOpen : 접속이 열릴 때(handshake가 완료, connection이 맺어짐)
+	2. @OnClose : 접속이 닫힐 떄
+	3. @OnMessage : 메시지가 수신될 때 (socket에서 정보 수신 시 실행되며 evt.data로 정보가 들어옴)
+ - handshake : HTTP에서 Web Socket으로 프로토콜 전환
+
  --------------------------------------------------------------------------------------------------------------------------
  [참고]
  https://12bme.tistory.com/555
  https://12bme.tistory.com/565
+
+200816 >> 와...이거 대체 먼 내용이냐...ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
