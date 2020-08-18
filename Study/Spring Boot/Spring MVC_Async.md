@@ -79,7 +79,7 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
 	- SseEvemtBuilder : Event에 더 많은 정보를 추가.
 
 # 웹 소켓
- - WebSocket : client마다 원하는 topic의 구독 신청을 해두고 어떠한 사용자가 해당 topic에 메시지를 보내면 그 topic을 구독하는 모든 사용자에게 보냄
+ - WebSocket : **client마다 원하는 topic의 구독 신청을 해두고 어떠한 사용자가 해당 topic에 메시지를 보내면 그 topic을 구독하는 모든 사용자에게 보냄**
 	1. 특정 Port를 통한 실시간 양방향 통신
 	2. web socket은 HTTP가 해결 할 수 없었던, Client 요청이 없음에도 Server로부터 응답받는 상황을 해결하기 위한 해결책
 	3. 실시간 서비스 또는 짧은 시간에 많은 양의 정보를 보낼때 적합
@@ -126,8 +126,8 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
 	- 메시지 브로커
 	- 양방향 네트워크 프로토콜 사용 가능
  - Websocket 과 STOMP의 차이
-  : Websocket은 Server와 Client의 1:1 통신(연결이 끊어지면 message가 사라질 수 있다고 함)
-  STOMP는 메시지 브로커로 1:N의 관계가 될수도 있으며 메시지를 서버에 저장해두면 클라이언트가 주기적으로 가져갈 수 있음.
+  : **Websocket은 Server와 Client의 1:1 통신(연결이 끊어지면 message가 사라질 수 있다고 함)
+  STOMP는 메시지 브로커로 1:N의 관계가 될수도 있으며 메시지를 서버에 저장해두면 클라이언트가 주기적으로 가져갈 수 있음.**
  - @MessageMapping : Message를 수신 받기 위해 해당 어노테이션을 추가하며 수신할 목적지가 어디인지 알려줌.
 	**1. @sendTo -> 1:n으로 메시지를 보낼때 사용하는 구조로 default 경로는 /topic**
 	**2. @SendToUser -> 1:1로 메시지를 보낼때 사용하며 default 경로는 /queue**
@@ -161,12 +161,13 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
 			this.sessions.clear();
 		}
 	</pre>
- - completableFuture : 람다 기반 비동기식 병렬 프로그래밍 기법
+ - completableFuture : 람다 기반 비동기식 병렬 프로그래밍 기법  
+   
 	[참고] https://brunch.co.kr/@springboot/267  
 	       https://12bme.tistory.com/546
  --------------------------------------------------------------------------------------------------------------------------
  [참고]
- https://12bme.tistory.com/555
+ https://12bme.tistory.com/555  
  https://12bme.tistory.com/565
 
 200816 >> 와...이거 대체 먼 내용이냐...ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
