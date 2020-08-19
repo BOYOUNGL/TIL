@@ -1,5 +1,5 @@
 Spring MVC - 비동기  
-
+[참고] https://brunch.co.kr/@springboot/401  
 Servlet API 초기, container가 요청을 받아 처리, 응답 결과가 client에게 전달될 때까지 Thread가 block  
 
 - Servlet : servlet program 개발시 반드시 구현되야하는 method를 선언하고 있는 interface  
@@ -125,11 +125,11 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
 	- 메시지 브로커
 	- 양방향 네트워크 프로토콜 사용 가능
  - Websocket 과 STOMP의 차이
-  : **Websocket은 Server와 Client의 1:1 통신(연결이 끊어지면 message가 사라질 수 있다고 함)
-  STOMP는 메시지 브로커로 1:N의 관계가 될수도 있으며 메시지를 서버에 저장해두면 클라이언트가 주기적으로 가져갈 수 있음.**
- - @MessageMapping : Message를 수신 받기 위해 해당 어노테이션을 추가하며 수신할 목적지가 어디인지 알려줌.
-	**1. @sendTo -> 1:n으로 메시지를 보낼때 사용하는 구조로 default 경로는 /topic**
-	**2. @SendToUser -> 1:1로 메시지를 보낼때 사용하며 default 경로는 /queue**
+  : **Websocket은 Server와 Client의 1:1 통신(연결이 끊어지면 message가 사라질 수 있다고 함)**  
+  **STOMP는 메시지 브로커로 1:N의 관계가 될수도 있으며 메시지를 서버에 저장해두면 클라이언트가 주기적으로 가져갈 수 있음.**  
+ - @MessageMapping : Message를 수신 받기 위해 해당 어노테이션을 추가하며 수신할 목적지가 어디인지 알려줌.  
+	**1. @sendTo -> 1:n으로 메시지를 보낼때 사용하는 구조로 default 경로는 /topic**  
+	**2. @SendToUser -> 1:1로 메시지를 보낼때 사용하며 default 경로는 /queue**  
  - @EnableWebSocketMessageBroker : 웹 소켓을 통해 메시징을 사용 가능하도록 함.
 	1. /topic : 브로커에게 전달
 	2. /app : 메시지 핸들러(@MessageMapping이 붙은 메소드와 같은)에 전달
@@ -169,5 +169,5 @@ XmlHttpRequest : client에 비동기로 message를 전달. but, 여전히 요청
  https://12bme.tistory.com/555  
  https://12bme.tistory.com/565
 
-200816 >> 와...이거 대체 먼 내용이냐...ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+200816 >> 와...이거 대체 먼 내용이냐...ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ  
 200818 >> 내가 정리했지만...참 읽기 힘들다 
