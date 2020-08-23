@@ -1,6 +1,5 @@
 # Spring Webflux  
- : 완전한 Non-blocking으로, Reactive Stream back pressure(받는 컴포넌트에서 보내는 컴포넌트에게 얼마큼의 데이터를 소화할 수 있는지 알려줌  
-   속도가 다른 컴포넌트 통신에서 유리)를 지원  
+ : 완전한 Non-blocking으로, Reactive Stream backpressure(받는 컴포넌트에서 보내는 컴포넌트에게 얼마큼의 데이터를 소화할 수 있는지 알려 줌.속도가 다른 컴포넌트 통신에서 유리)를 지원  
    Spring Web MVC와 Spring Webflux 각각은 Spring Framework 안에서 대칭적으로 존재  
    각 모듈은 선택적이며, 어플리케이션은 하나, 또는 다른 모듈, 경우에 따라 둘 모두 사용 가능  
    Web Application에서 Reactive program을 제공하는 Framework  
