@@ -1,4 +1,4 @@
-Spring Webflux	
+# Spring Webflux  
  : 완전한 Non-blocking으로, Reactive Stream back pressure(받는 컴포넌트에서 보내는 컴포넌트에게 얼마큼의 데이터를 소화할 수 있는지 알려줌.속도가 다른 컴포넌트 통신에서 유리)를 지원  
    Spring Web MVC와 Spring Webflux 각각은 Spring Framework 안에서 대칭적으로 존재  
    각 모듈은 선택적이며, 어플리케이션은 하나, 또는 다른 모듈, 경우에 따라 둘 모두 사용 가능  
@@ -60,27 +60,27 @@ Spring Webflux
 	
 	
 # 반응형 REST 서비스의 배포와 사용
-	: 반응형은 응답 값 Mono or Flux로 래핑
-		- Mono : 단일 데이터, 0~1개의 데이터 전달
-		- Flux : 리스트 데이터, 0~N개의 데이터 전달
-	- 스트리밍 : HTTP 응답 스트리밍 시에는 연결이 끊어진 클라이언트를 가능한 빠르게 감지하기 위해 데이터를 주기적으로 전송하는 것이 중요
-		- content-Type
-			1. application/json
-			2. application/stream+json : 결과 스트리밍 하려면
-				@GetMApping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE) : 일부 결과가 준비됐을 때 스프링에 결과를 스트리밍하도록 지시
-			3. text/event-stream
-				@GetMApping(produces = MediaType.TEXT_EVENT_STREAM_VALUE) : 결과가 더 없을때까지 부드럽게 스트리밍 됨
-				
-	- 통합 테스트
-		- @DirtiesContext : spring의 텍스트 컨텍스트 프레임워크에게 해당 클래스의 테스트에서 애플리케이션 컨텍스트의 상태를 변경한다는것을 알려줌.
-		<pre>
-			@DirtiesContext(classMode = DirtiesContext.ClasMode.AFTER_EACH_TEST_METHOD)
-		</pre>
-		- @AutoConfigureWebTestClient는 Mock 환경에서 WebTestClient를 가져오기 위해 필요
-		  WebTestClient를 사용하면 요청을 쉽게 작성해 서버로 보낼 수 있으며 응답을 보낸 후에 결과에 대한 기댓값도 확인 가능
-		
+- 반응형은 응답 값 Mono or Flux로 래핑
+	- Mono : 단일 데이터, 0~1개의 데이터 전달
+	- Flux : 리스트 데이터, 0~N개의 데이터 전달
+- 스트리밍 : HTTP 응답 스트리밍 시에는 연결이 끊어진 클라이언트를 가능한 빠르게 감지하기 위해 데이터를 주기적으로 전송하는 것이 중요
+	- content-Type
+		1. application/json
+		2. application/stream+json : 결과 스트리밍 하려면
+			@GetMApping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE) : 일부 결과가 준비됐을 때 스프링에 결과를 스트리밍하도록 지시
+		3. text/event-stream
+			@GetMApping(produces = MediaType.TEXT_EVENT_STREAM_VALUE) : 결과가 더 없을때까지 부드럽게 스트리밍 됨
+
+- 통합 테스트
+	- @DirtiesContext : spring의 텍스트 컨텍스트 프레임워크에게 해당 클래스의 테스트에서 애플리케이션 컨텍스트의 상태를 변경한다는것을 알려줌.
+	<pre>
+		@DirtiesContext(classMode = DirtiesContext.ClasMode.AFTER_EACH_TEST_METHOD)
+	</pre>
+	- @AutoConfigureWebTestClient는 Mock 환경에서 WebTestClient를 가져오기 위해 필요
+	  WebTestClient를 사용하면 요청을 쉽게 작성해 서버로 보낼 수 있으며 응답을 보낸 후에 결과에 대한 기댓값도 확인 가능
+
 # 템플릿 엔진으로 타임리프 사용
-	: spring-boot-starter-webflux 및 spring-boot-starterthymeleaf 의존성 추가 시, 스프링 부트가 웹플럭스 애플리케이션에서 사용하는 타임리프를 자동으로 구성
+- spring-boot-starter-webflux 및 spring-boot-starterthymeleaf 의존성 추가 시, 스프링 부트가 웹플럭스 애플리케이션에서 사용하는 타임리프를 자동으로 구성
 	<pre>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -106,7 +106,7 @@ Spring Webflux
 	  ?? ReactiveDataDriverContextVariable : 
 	
 # 웹플러스와 웹 소켓
- : javax.websocket-api 추가하여 핸들러를 구현하는 반응형 WEbSocketHandler 인터페이스로 반응형 application에서 웹 소켓을 사용 할 수 있음
+- javax.websocket-api 추가하여 핸들러를 구현하는 반응형 WEbSocketHandler 인터페이스로 반응형 application에서 웹 소켓을 사용 할 수 있음
  <pre>
 	<dependency>
 		<groupId>javax.websocket</groupId>
