@@ -1,5 +1,6 @@
 # Spring Webflux  
- : 완전한 Non-blocking으로, Reactive Stream back pressure(받는 컴포넌트에서 보내는 컴포넌트에게 얼마큼의 데이터를 소화할 수 있는지 알려줌.속도가 다른 컴포넌트 통신에서 유리)를 지원  
+ : 완전한 Non-blocking으로, Reactive Stream back pressure(받는 컴포넌트에서 보내는 컴포넌트에게 얼마큼의 데이터를 소화할 수 있는지 알려줌  
+   속도가 다른 컴포넌트 통신에서 유리)를 지원  
    Spring Web MVC와 Spring Webflux 각각은 Spring Framework 안에서 대칭적으로 존재  
    각 모듈은 선택적이며, 어플리케이션은 하나, 또는 다른 모듈, 경우에 따라 둘 모두 사용 가능  
    Web Application에서 Reactive program을 제공하는 Framework  
@@ -11,15 +12,15 @@
 				  네트워크 컴포넌트는 I/O 이벤트에 반응하며, UI 컨트롤러는 이벤트에 반응  
 				  Non-bloking Reactive => 동작 중단 대신 명령의 완료 또는 데이터의 제공 등의 알람에 반응하는 방식을 취함  
   
-	?? reactive streams에서 중요한 용어  
+	?? **reactive streams에서 중요한 용어**  
 		- 스트리밍 처리  
 		- 논블로킹(asynchronous)  
 		- 백프레셔(back pressure) : 다이나믹 풀 방식의 데이터 요청을 통해 구독자가 수용할 수 있는 만큼 데이터를 요청  
 				  
 - org.springframework.http.server.reactive 패키지에서 ServerHttpRequest와 ServerHttpResponse를 모두 가져옴  
-  인터페이스로 실행에 사용되는 컨테이너에 다라 인터페이스 인스턴스가 생성  
+  인터페이스로 실행에 사용되는 컨테이너에 따라 인터페이스 인스턴스가 생성  
 - HttpHandler : 요청과 응답을 처리하는 싱글 메서드를 가진 단순한 계약.의도적으로 작게 설계되었고 목적은 오로지 각기 다른 HTTP 서버 API에 대응하는 최소형 추상화  
-- 서블릿 3.1 컨테이너에서 실행될 때 serveletHttpHandlerAdapter는 일반 서블릿 세계에서 반응형 세계로 적용하기 위해 사용  
+- 서블릿 3.1 컨테이너에서 실행될 때 serveletHttpHandlerAdapter는 일반 서블릿에서 반응형으로 적용하기 위해 사용  
 - Netty 같은 기본 반응형 엔진에서 실행될 때는 ReactorHttpHandlerAdapter가 사용  
 	-> Netty ? protocol server, client 등 java network application 개발을 위한 비차단 입출력 client-server framework  
 - 웹 요청이 스프링 웹플럭스 애플리케이션으로 들어오면, HandlerAdapter가 먼저 요청 받음  
@@ -61,8 +62,8 @@
 	
 # 반응형 REST 서비스의 배포와 사용
 - 반응형은 응답 값 Mono or Flux로 래핑
-	- Mono : 단일 데이터, 0~1개의 데이터 전달
-	- Flux : 리스트 데이터, 0~N개의 데이터 전달
+	- **Mono : 단일 데이터, 0~1개의 데이터 전달**
+	- **Flux : 리스트 데이터, 0~N개의 데이터 전달**
 - 스트리밍 : HTTP 응답 스트리밍 시에는 연결이 끊어진 클라이언트를 가능한 빠르게 감지하기 위해 데이터를 주기적으로 전송하는 것이 중요
 	- content-Type
 		1. application/json
