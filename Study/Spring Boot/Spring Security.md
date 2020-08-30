@@ -98,29 +98,29 @@
 	  hasAuthority를 사용할 때에는 전달된 값을 그대로 확인  
 		>> 예전에 스프링 시큐리티 설정을 하다가 이런식으로 ROLE을 정해서 들어올 수 있게 하는걸 봤었음  
 		<pre>
-      @Secured("ROLE_ADMIN") // ROLE_ADMIN만
-      @RequestMapping("/admin/home.do")
-      public String adminHome(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {    
-        try {
-            System.out.println("admin home");
-        } catch (Exception e) {
-          // TODO: handle exception
-          e.printStackTrace();
-        }
-        return "home";
-      }
+		      @Secured("ROLE_ADMIN") // ROLE_ADMIN만
+		      @RequestMapping("/admin/home.do")
+		      public String adminHome(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {    
+			try {
+			    System.out.println("admin home");
+			} catch (Exception e) {
+			  // TODO: handle exception
+			  e.printStackTrace();
+			}
+			return "home";
+		      }
 		</pre>
 	- 애노테이션과 표현식을 사용한 보안 메소드
-	 1) preAuthorize : 요청을 받은후 함수 실행전 권한 검사  
-					           #을 통해 파라미터에 접근 가능 ex) #test
-	 2) PostAuthorize : 함수 실행 후 client에게 응답하기 직전 권한 검사  
+	 1) **preAuthorize** : 요청을 받은후 함수 실행전 권한 검사  
+			   #을 통해 파라미터에 접근 가능 ex) #test
+	 2) **PostAuthorize** : 함수 실행 후 client에게 응답하기 직전 권한 검사  
 	- 애노테이션 처리를 사용하려면 @EnableGlobalMethodSecurity 애노테이션을 보안 구성에 추가하고 prePostEnabled 속성을 true 설정
 		<pre>
 			@EnableGlobalMethodSecurity(prePostEnabled=true)
 		</pre>
 
  5. 웹플럭스 애플리케이션에 보안 추가하기
-	- @EnableWebFluxSecurity
+	- @EnableWebFluxSecurity : spring security 5에서 Reactive 지원을 하며 생긴 기능으로 보임
 	- URL 접근 보안 : 접근 규칙 -> SecurityWebFilterChain
 	- WebFluxSecurityConfiguration 클래스는 보안 구성을 포함하는 SecurityFilterChain의 인스턴스 감지  
 	  WebFilter로 감싸져서 웹플러스가 들어오는 요청에 정상적인 서블릿 필터처럼 동작을 추가하는데 사용
@@ -128,7 +128,8 @@
 	  인증 관리자가 자동으로 감지되는 데, ReactiveAuthenticationManager or UserDetailsRepository 유형의 빈을 등록하면 됨  
 	- 기본 구현 방법은 Websession에 컨텍스트를 저장하는 WebserssionServerSecurityContextRepository  
 	  NoOpServerSecurityContextRepository가 있는데 Stateless 애플리케이션에서 사용  
-	  ?? Stateless :  
+	  ?? Stateless : http와 같이 client의 이전 상태를 기록하지 않는 접속.즉, 웹서버가 사용자 작업을 기억하지 않음
+	  ?? Stateful : 사용자의 상태를 서버가 기억하고 활용  
 	- 사용자 인증 : 스프링 웹플럭스 기반 애플리케이션에서 사용자 인증은 ReactiveAuthenticationManager를 통해 수행.단일 인증 메소드
 	- ReactiveAuthenticationManagerAdapter
 	    - 블러킹 형태의 인스턴스
